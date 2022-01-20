@@ -15,20 +15,14 @@ public class StepsTest {
 
     @Test
     public void lambdaStepTest() {
-        step("Открываем главную страницу", () -> {
-            open("https://github.com");
-        });
+        step("Открываем главную страницу", () -> open("https://github.com"));
         step("Ищем репозиторий " + REPOSITORY, () -> {
             $(".header-search-input").click();
             $(".header-search-input").sendKeys(REPOSITORY);
             $(".header-search-input").submit();
         });
-        step("Переходим в репозиторий " + REPOSITORY, () -> {
-            $(linkText(REPOSITORY)).click();
-        });
-        step("Открываем таб Issues", () -> {
-            $(partialLinkText("Issues")).click();
-        });
+        step("Переходим в репозиторий " + REPOSITORY, () -> $(linkText(REPOSITORY)).click());
+        step("Открываем таб Issues", () -> $(partialLinkText("Issues")).click());
         step("Проверяем наличие Issue с номером " + NUMBER, () -> {
             $(withText("#" + NUMBER)).should(Condition.visible);
         });

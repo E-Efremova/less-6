@@ -1,10 +1,8 @@
-import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.WebDriverRunner;
 import io.qameta.allure.Allure;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
-import static com.codeborne.selenide.Selectors.withText;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
 import static io.qameta.allure.Allure.step;
@@ -20,17 +18,13 @@ public class AttachmentsTest {
 
     @Test
     public void lambdaAttachmentTest() {
-        step("Открываем главную страницу", () -> {
-            open("https://github.com");
-        });
+        step("Открываем главную страницу", () -> open("https://github.com"));
         step("Ищем репозиторий " + REPOSITORY, () -> {
             $(".header-search-input").click();
             $(".header-search-input").sendKeys(REPOSITORY);
             $(".header-search-input").submit();
         });
-        step("Переходим в репозиторий " + REPOSITORY, () -> {
-            $(linkText(REPOSITORY)).click();
-        });
+        step("Переходим в репозиторий " + REPOSITORY, () -> $(linkText(REPOSITORY)).click());
         step("Открываем таб Issues", () -> {
             Allure.addAttachment("Page Source", "text/html", WebDriverRunner.source(), "html");
             $(partialLinkText("Issues")).click();
@@ -46,9 +40,5 @@ public class AttachmentsTest {
         steps.shouldSeeIssueWithNumber(NUMBER);
     }
 
-    @AfterEach
-    public void saveSources() {
-        steps.attachPageSource();
-    }
 
 }

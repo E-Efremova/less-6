@@ -39,9 +39,5 @@ public class WebSteps {
         $(withText("#" + number)).should(Condition.visible);
     }
 
-    @Attachment(value = "Screenshot", type = "text/html", fileExtension = "html")
-    public byte[] attachPageSource() {
-        return WebDriverRunner.source().getBytes(StandardCharsets.UTF_8);
-    }
 
 }
